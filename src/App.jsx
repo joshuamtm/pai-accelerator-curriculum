@@ -8,10 +8,12 @@ const WEEKS = [
       'Configure custom instructions on your platform with your role, organization, preferences, and voice',
       'Articulate what makes you *you* — the context an AI assistant needs to be useful',
       'Understand data privacy boundaries for your platform',
+      'Recognize that building a PAI is a self-knowledge project, not a technology project — and why that matters for avoiding confirmation bias',
     ],
     flow: [
       { time: '0:00', activity: 'Welcome, introductions, program arc overview', format: 'Facilitator-led' },
       { time: '0:10', activity: 'The Human-AI Augmentation Spectrum — where are you now?', format: 'Teaching + discussion' },
+      { time: '0:17', activity: 'The Mirror Effect: "A Personal AI does not correct your biases — it scales them." AI sycophancy is proven (Anthropic ICLR 2024). Even a mathematically perfect thinker develops false beliefs through repeated AI interaction (MIT 2025). Self-knowledge is your primary safeguard.', format: 'Teaching (5 min)' },
       { time: '0:20', activity: 'Exercise: "Write Your User Manual" — draft a 1-page document describing your role, organization, communication style, what you care about, what you need help with', format: 'Individual work' },
       { time: '0:35', activity: 'Configure custom instructions on your platform (platform-specific walkthrough)', format: 'Guided hands-on' },
       { time: '0:45', activity: 'Test it — ask your AI "Who am I?" and see what it knows. Iterate.', format: 'Individual + share-out' },
@@ -22,15 +24,24 @@ const WEEKS = [
       claude: 'Settings > Profile Preferences + start a Project for PAI work',
       gemini: 'Settings > Extensions + create first Gem with identity context',
     },
+    teachingPoints: [
+      'The Mirror Effect: AI reflects your thinking patterns back at you — including your blind spots. If you feed it biased sources, it processes them faithfully. Research shows LLMs systematically agree with users (Anthropic/ICLR 2024).',
+      'MIT researchers proved that even a mathematically perfect reasoner develops false beliefs through sycophantic AI interaction — at just 10% sycophancy rate. Humans have no chance without deliberate safeguards.',
+      'Building a PAI is a self-knowledge project, not a technology project. The AI you build will show you exactly who you are in your unfiltered daily habits.',
+      'The risk formula: smart + low self-awareness + isolated = dangerous. People who lack trusted humans to challenge their thinking are most vulnerable to AI-accelerated confirmation bias.',
+      'Your custom instructions and foundational documents are not just setup work — they are cognitive safeguards that force self-examination before personalization begins.',
+    ],
     homework: [
       'Refine your custom instructions — test with 5 different work tasks and adjust',
       'Start a "workflows I repeat" list — write down 5-10 tasks you do weekly that follow a pattern',
       'Join the MTM Together cohort channel and introduce yourself',
+      'Reflection exercise: Write down 3 beliefs you hold strongly about your work. Ask your AI to argue the opposite position. Notice how it responds.',
     ],
     assessment: [
       'Custom instructions configured and tested',
       '"User manual" document drafted (even rough)',
       'Can explain the augmentation spectrum to a colleague',
+      'Can articulate why self-knowledge matters more than AI features for building a useful PAI',
     ],
   },
   {
@@ -118,7 +129,7 @@ const WEEKS = [
       { time: '0:18', activity: 'Exercise: "Voice Calibration" — give AI 3 emails you\'ve written. Ask it to describe your voice. Then draft a new email in your style. Compare.', format: 'Individual hands-on' },
       { time: '0:30', activity: 'Uploading organizational context: policies, templates, org charts, FAQs', format: 'Demo + guided hands-on' },
       { time: '0:40', activity: 'Exercise: "Build Your PAI Workspace" — set up a dedicated Project/GPT/Gem with identity docs, voice samples, org knowledge, and workflow SOPs', format: 'Individual work' },
-      { time: '0:50', activity: 'Security checkpoint: What did you upload? Is any of it sensitive? Where does it live?', format: 'Group discussion' },
+      { time: '0:50', activity: 'Security checkpoint: What did you upload? Is any of it sensitive? Where does it live? Plus: cognitive security — is your AI challenging you or just agreeing? Have you tested it with a contrarian prompt?', format: 'Group discussion' },
       { time: '0:55', activity: 'Homework introduction', format: 'Facilitator-led' },
     ],
     platforms: null,
@@ -238,6 +249,7 @@ const KIRKPATRICK = [
       '"Start small, increment" — packages before agents',
       '"My voice matters" — the AI should sound like me',
       '"Safety is part of the design, not an afterthought"',
+      '"My AI is a mirror, not an oracle" — it reflects my thinking patterns, including my biases. Self-awareness is the real safeguard.',
     ],
     measure: 'Weekly reflections + pre/post self-assessment',
   },
@@ -256,6 +268,7 @@ const KIRKPATRICK = [
 
 const MATERIALS = [
   { name: '"Write Your User Manual" template', weeks: 'Week 1', notes: 'Structured prompts for role, org, voice, preferences' },
+  { name: 'The Mirror Effect research brief', weeks: 'Week 1', notes: 'AI sycophancy evidence, confirmation bias risks, the self-knowledge safeguard (peer-reviewed citations)' },
   { name: 'Platform setup guides (x3)', weeks: 'Week 1', notes: 'ChatGPT, Claude, Gemini custom instructions walkthrough' },
   { name: 'Square Wheel Calculator', weeks: 'Week 2', notes: 'Joshua\'s existing tool' },
   { name: 'Workflow Breakdown Worksheet', weeks: 'Week 2', notes: 'Trigger > Steps > Decisions > Output template' },
