@@ -35,6 +35,7 @@ const WEEKS = [
       'Microsoft Research (CHI 2025) found that across 936 real-world tasks, higher confidence in AI correlates with less critical thinking. Workers shift from problem-solving to "AI response integration." (Lee et al., CHI 2025)',
       'The Center for Humane Technology calls these "echo chambers of one" — individual-level feedback loops where a single person\'s beliefs become progressively more extreme without normal social corrective mechanisms.',
       'The hopeful counterpoint: Costello et al. (Science, 2024) showed that structured, evidence-based AI dialogue reduced conspiracy beliefs by 20% durably. The distinction is between passive AI use (which degrades metacognition) and deliberate, evidence-challenging use (which improves it). That distinction is what this course teaches.',
+      'Governance frame: NIST\'s Center for AI Standards and Innovation (CAISI) launched the AI Agent Standards Initiative in February 2026, followed by an RFI on Securing AI Agent Systems in April 2026. The direction of travel is clear — AI agent governance is moving from theoretical to regulatory. Reassure participants: COMPAS already anticipates most of what these frameworks ask for. They don\'t need to learn compliance vocabulary; they need to build habits. The vocabulary follows naturally.',
     ],
     homework: [
       'Refine your custom instructions — test with 5 different work tasks and adjust',
@@ -84,6 +85,7 @@ const WEEKS = [
       'The Robot Drawing Lesson: clear instructions > vague instructions, always',
       'Document what exists today first, then let AI help redesign',
       'This documentation is durable infrastructure — it works across any AI platform',
+      'Governance-readiness is a factor in the Square Wheel calculation. A workflow worth automating is one whose inputs, decisions, and outputs you can describe clearly enough that your PAI can\'t accidentally do the wrong thing and you wouldn\'t notice. If you can\'t describe it that clearly, the documentation work is the prerequisite — not optional compliance overhead, but the thing that makes automation safe. The documentation you produce this week is the first layer of the audit trail any AI governance framework eventually asks for.',
     ],
   },
   {
@@ -114,11 +116,19 @@ const WEEKS = [
       'Use your package at least 3 times in real work this week',
       'Start documenting a second workflow for Week 5-6',
       'Note what\'s missing — what does the package need to "know" that it doesn\'t?',
+      'Apply the six-question lens to your package: (1) if this misbehaved, how would I find out? (2) what data does it touch that it doesn\'t strictly need? (3) what would an audit trail of its actions look like? (4) is content it reads ever from an untrusted source? (5) could someone else tell what it did after the fact? (6) what happens if I walk away for an hour? Bring one answer that surprised you to Week 4.',
+    ],
+    teachingPoints: [
+      'Packages are where governance becomes concrete. Every design decision you make — what the package reads, what it writes, whose data it touches, how you know it worked — is an implicit governance decision. You don\'t need a compliance framework to make these decisions, but it helps to know someone has already thought about them carefully.',
+      'The six-question lens (from NIST\'s AI Agent Standards Initiative, translated): (1) Can you tell which package did what? — agent identity. (2) Does the package only access what it needs? — least privilege. (3) Can you reconstruct what it did afterward? — audit trail. (4) Will you notice if it drifts? — monitoring. (5) Could content it reads contain hidden instructions? — prompt injection awareness. (6) Does it play well with other packages? — protocol standards, mostly a vendor concern. Teach the questions, not the vocabulary.',
+      'The single most important design question at this stage: "If this package misbehaved in a way I didn\'t catch, how would I find out?" If the answer is "I wouldn\'t," redesign until the answer changes. This is the difference between a package you can trust and one you have to watch.',
+      'Framing for participants: you are not learning to comply with federal AI standards. You are learning to build AI tools that you\'d trust with your own work. The fact that those are the same thing is a happy accident — and a selling point when your organization eventually asks.',
     ],
     assessment: [
       'One working AI package created and tested',
       'Package tested by a peer (peer feedback captured)',
       'Can explain package vs. project vs. agent distinction',
+      'Can articulate at least three of the six governance questions applied to their own package',
     ],
   },
   {
@@ -180,12 +190,20 @@ const WEEKS = [
       'Document: What worked? What did you have to fix? What\'s still missing?',
       'Prepare a 3-minute showcase for Week 6 (demo your PAI in action)',
       'Write your "Before & After" — what did this workflow look like before vs. now?',
+      'Audit trail practice: for each of the 3 real tasks, write one sentence capturing what data your PAI touched and what it produced. Two sentences max per task. This is the habit that makes the Week 6 showcase easy — and the habit every AI governance framework eventually asks for.',
+    ],
+    teachingPoints: [
+      'The Sorcerer\'s Apprentice lesson: constraints matter more than capabilities. A capable AI without constraints produces chaos. A modestly capable AI with good constraints produces value.',
+      'The autonomy spectrum is also a visibility spectrum. As participants move from "I ask, it drafts" toward "it runs on its own," the question "can I reconstruct what this did?" stops being philosophical and becomes the most important control. You can restrict permissions after the fact. You can\'t restore visibility you never captured.',
+      'NIST\'s AI Agent Standards Initiative identifies audit trails and monitoring as core priorities for exactly this reason: as AI autonomy increases, after-the-fact visibility becomes the last line of defense. Teach this as a design principle, not a compliance requirement. The design principle is: build what you can see.',
+      'The Week 5 audit-trail habit (one sentence per task) feels small but scales. Participants who adopt it now will be ready to speak confidently about AI governance when their organization asks — without ever having memorized a framework.',
     ],
     assessment: [
       'At least one real work task completed using PAI',
       'Second workflow documented and configured in PAI',
       'Can explain the spectrum from AI-assisted to agent',
       'Showcase preparation started',
+      'Three audit-trail sentences written (one per real task completed)',
     ],
   },
   {
@@ -284,12 +302,62 @@ const MATERIALS = [
   { name: 'Workflow Breakdown Worksheet', weeks: 'Week 2', notes: 'Trigger > Steps > Decisions > Output template' },
   { name: 'Meta Prompt template', weeks: 'Week 3', notes: 'For converting SOPs into package instructions' },
   { name: 'Package creation guides (x3)', weeks: 'Week 3', notes: 'Custom GPT, Gem, Project step-by-step' },
+  { name: 'NIST AI Agent Standards brief (one page)', weeks: 'Week 3', notes: 'Six priorities translated into plain language — used as the package design lens. Source: NIST CAISI, 2026' },
+  { name: 'Six-Question Package Review checklist', weeks: 'Week 3', notes: 'Identity / least privilege / audit trail / monitoring / prompt injection / protocols, one question each' },
   { name: 'Voice calibration exercise guide', weeks: 'Week 4', notes: '"Give AI 3 emails, ask it to describe your voice"' },
   { name: 'Security self-check checklist', weeks: 'Week 4', notes: 'What did you upload? Where? Sensitive?' },
   { name: 'Multi-step workflow worksheet', weeks: 'Week 5', notes: 'Task > Steps > Constraints > Output > Checkpoint' },
   { name: '90-Day Roadmap template', weeks: 'Week 6', notes: 'Next builds, skills, maintenance plan' },
   { name: 'Pre/post assessment surveys', weeks: 'Weeks 1, 6', notes: 'Quantitative + qualitative' },
   { name: '30/60-day follow-up surveys', weeks: 'Post-program', notes: 'Retention and impact measurement' },
+]
+
+const NIST_ALIGNMENT = [
+  {
+    week: 1,
+    compas: 'Context',
+    rmf: 'Govern + Map',
+    moment: 'Framing governance as knowable now. The Mirror Effect + the self-knowledge safeguard are the cognitive half of governance; NIST CAISI is the institutional half. Both say the same thing: know yourself, know what you\'re doing.',
+  },
+  {
+    week: 2,
+    compas: 'Objective',
+    rmf: 'Map',
+    moment: 'Documentation as prerequisite. The SOP work IS the first layer of the audit trail. Frame the Square Wheel Calculator as a governance-readiness check, not just a time-value check.',
+  },
+  {
+    week: 3,
+    compas: 'Method',
+    rmf: 'Manage',
+    moment: 'The highest-value NIST integration point. Introduce the six priorities as questions the participant asks of their own package. The Six-Question Package Review checklist is the deliverable. No compliance vocabulary — just the questions.',
+  },
+  {
+    week: 4,
+    compas: 'Partnership',
+    rmf: 'Govern',
+    moment: 'Security checkpoint (already in the curriculum) is where identity + least privilege + data classification meet. Reinforce that what they uploaded is under their governance now.',
+  },
+  {
+    week: 5,
+    compas: 'Assessment',
+    rmf: 'Measure + Manage',
+    moment: 'Audit trail habit. One sentence per task, what it touched and what it produced. This is the discipline that scales — participants who practice it now will speak confidently about governance in six months without ever having studied the framework.',
+  },
+  {
+    week: 6,
+    compas: 'Sharing',
+    rmf: 'Govern',
+    moment: 'The showcase IS a governance artifact. Participants are publicly demonstrating what they built, what it does, and what they\'ve learned to watch for. That\'s the Sharing phase and the transparency principle in one move.',
+  },
+]
+
+const NIST_SIX = [
+  { name: 'Agent identity', plain: 'Can you tell which AI did what?', where: 'Week 3 package review' },
+  { name: 'Least privilege', plain: 'Only access what\'s needed.', where: 'Week 3 package design + Week 4 security checkpoint' },
+  { name: 'Audit trails', plain: 'Can you reconstruct what it did afterward?', where: 'Week 5 audit trail habit' },
+  { name: 'Monitoring', plain: 'Will you notice when something drifts?', where: 'Week 3 review + Week 5 autonomy spectrum' },
+  { name: 'Prompt injection awareness', plain: 'Content Claude reads can contain instructions.', where: 'Week 3 review + Week 4 security checkpoint' },
+  { name: 'Protocol standards', plain: 'How AI tools talk to each other — mostly a vendor concern.', where: 'Mentioned in Week 3, not taught deeply' },
 ]
 
 const DATES = [
@@ -308,6 +376,7 @@ function Nav({ activeSection }) {
     { id: 'weeks', label: 'Weekly Plan' },
     { id: 'materials', label: 'Materials' },
     { id: 'calendar', label: 'Calendar' },
+    { id: 'nist', label: 'NIST' },
   ]
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-md border-b border-black/5">
@@ -596,6 +665,64 @@ export default function App() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* ═══ NIST ALIGNMENT (FACILITATOR NOTES) ═══ */}
+        <section id="nist" className="pb-16 md:pb-24">
+          <div className="text-center mb-12">
+            <p className="font-[var(--font-mono)] text-xs font-semibold text-mtm-teal uppercase tracking-[0.2em] mb-2">Facilitator Notes</p>
+            <h2 className="font-[var(--font-display)] text-3xl md:text-4xl font-bold text-ink">NIST Alignment</h2>
+            <p className="text-sm text-ink-muted mt-2 max-w-2xl mx-auto leading-relaxed">
+              Where this curriculum touches the NIST AI Agent Standards Initiative and the broader AI Risk Management Framework. For Kim and any co-facilitator who gets asked "is this NIST-aligned?"
+            </p>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-black/5 p-6 md:p-8 shadow-sm mb-6">
+            <h3 className="font-[var(--font-display)] text-lg font-bold text-ink mb-2">Short answer for participants</h3>
+            <p className="text-sm text-ink-muted leading-relaxed mb-3">
+              This course teaches the habits that the NIST AI Agent Standards Initiative (CAISI, 2026) is formalizing. Participants are not learning a compliance framework; they are learning the practices the framework exists to encourage. The overlap is significant and largely accidental — COMPAS was designed around good judgment, and good judgment converges with what governance frameworks ask for.
+            </p>
+            <p className="text-sm text-ink-muted leading-relaxed">
+              When an employer, funder, or auditor asks a graduate whether their PAI work aligns with federal AI standards, the answer is yes — with specifics from this table.
+            </p>
+          </div>
+
+          {/* Week by week */}
+          <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-sm mb-8">
+            <div className="grid grid-cols-[auto_auto_auto_1fr] gap-0 text-xs font-[var(--font-mono)] text-ink-faint uppercase tracking-wider px-6 py-3 border-b border-black/5 bg-cream">
+              <span className="pr-4">Week</span>
+              <span className="pr-4">COMPAS</span>
+              <span className="pr-4">AI RMF</span>
+              <span>Teaching Moment</span>
+            </div>
+            {NIST_ALIGNMENT.map((row, i) => (
+              <div key={row.week} className={`grid grid-cols-[auto_auto_auto_1fr] gap-0 items-start px-6 py-4 text-sm ${i < NIST_ALIGNMENT.length - 1 ? 'border-b border-black/5' : ''}`}>
+                <span className="pr-4 font-[var(--font-mono)] text-ink font-semibold">W{row.week}</span>
+                <span className="pr-4 font-[var(--font-mono)] text-xs text-ink-muted">{row.compas}</span>
+                <span className="pr-4 font-[var(--font-mono)] text-xs text-ink-muted">{row.rmf}</span>
+                <span className="text-ink-muted leading-relaxed">{row.moment}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* The Six Priorities */}
+          <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-sm">
+            <div className="px-6 py-4 bg-cream border-b border-black/5">
+              <h3 className="font-[var(--font-display)] text-lg font-bold text-ink">NIST\'s Six Priorities — Plain Language</h3>
+              <p className="text-xs text-ink-faint mt-1">These are the questions you want participants to be able to ask of their own packages. Vocabulary optional.</p>
+            </div>
+            {NIST_SIX.map((p, i) => (
+              <div key={p.name} className={`grid grid-cols-[auto_1fr_auto] gap-4 items-start px-6 py-4 text-sm ${i < NIST_SIX.length - 1 ? 'border-b border-black/5' : ''}`}>
+                <span className="font-[var(--font-display)] font-semibold text-ink w-40 shrink-0">{p.name}</span>
+                <span className="text-ink-muted leading-relaxed">{p.plain}</span>
+                <span className="text-xs text-ink-faint font-[var(--font-mono)] text-right shrink-0">{p.where}</span>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-xs text-ink-faint mt-6 italic max-w-2xl mx-auto text-center leading-relaxed">
+            A full COMPAS-to-NIST-AI-RMF crosswalk is available as a separate MTM artifact for facilitators who want the complete mapping. Sources: NIST AI RMF 1.0 (2023); NIST CAISI AI Agent Standards Initiative (February 2026); CAISI RFI on Securing AI Agent Systems (April 2026).
+          </p>
         </section>
 
         {/* ═══ PREREQUISITES ═══ */}
