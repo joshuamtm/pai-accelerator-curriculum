@@ -1,16 +1,38 @@
-# React + Vite
+# PAI Accelerator Curriculum
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Curriculum outline and facilitator guide for the **Build Your Personal AI Assistant** accelerator — a 6-week program helping nonprofit professionals move from "generic AI user" to "someone whose AI actually knows them and works like a partner."
 
-Currently, two official plugins are available:
+## Program Details
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Dates:** April 23 - May 28, 2026 (Thursdays 2:00-3:00 PM ET)
+- **Facilitators:** Joshua Peskay & Kim Snyder
+- **Platforms:** ChatGPT Plus, Claude Pro, Google Gemini
+- **Framework:** COMPAS (Context, Objective, Method, Partnership, Assessment, Sharing)
+- **Design Model:** Kirkpatrick (working backwards from organizational outcomes)
 
-## React Compiler
+## What's In This App
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Kirkpatrick Model** — Level 4 → 1 outcomes, behaviors, learning objectives, and engagement design
+- **6-Week Curriculum** — Expandable weekly plans with session flow, teaching points, homework, and assessment criteria
+- **Platform Guides** — Complete PAI architecture and setup guides for Google Gemini, Anthropic Claude, and OpenAI ChatGPT
+- **Platform Comparison** — Feature matrix, decision tree, and COMPAS file mapping across all three platforms
+- **Materials Checklist** — All materials Kim needs to develop, organized by week
+- **Session Calendar** — Dates and topics
+- **NIST Alignment** — How the curriculum maps to the NIST AI Agent Standards Initiative and AI Risk Management Framework
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React + Vite
+- Tailwind CSS v4
+- Deployed via Netlify
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Meet the Moment
+
+[mtm.now](https://mtm.now) — Advisory & Coaching for Nonprofits

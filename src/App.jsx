@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { PLATFORMS, PLATFORM_COMPARISON, COMPAS_PLATFORM_MAP } from './platformData.js'
 
 const WEEKS = [
   {
@@ -27,7 +28,6 @@ const WEEKS = [
     },
     teachingPoints: [
       'The Mirror Effect: AI reflects your thinking patterns back at you — including your blind spots. If you feed it biased sources, it processes them faithfully. Research shows LLMs systematically agree with users (Anthropic/ICLR 2024).',
-      'MIT researchers proved that even a mathematically perfect reasoner develops false beliefs through sycophantic AI interaction — at just 10% sycophancy rate. Humans have no chance without deliberate safeguards.',
       'Building a PAI is a self-knowledge project, not a technology project. The AI you build will show you exactly who you are in your unfiltered daily habits.',
       'The risk formula: smart + low self-awareness + isolated = dangerous. People who lack trusted humans to challenge their thinking are most vulnerable to AI-accelerated confirmation bias.',
       'Your custom instructions and foundational documents are not just setup work — they are cognitive safeguards that force self-examination before personalization begins.',
@@ -145,8 +145,9 @@ const WEEKS = [
       { time: '0:18', activity: 'Exercise: "Voice Calibration" — give AI 3 emails you\'ve written. Ask it to describe your voice. Then draft a new email in your style. Compare.', format: 'Individual hands-on' },
       { time: '0:30', activity: 'Uploading organizational context: policies, templates, org charts, FAQs', format: 'Demo + guided hands-on' },
       { time: '0:40', activity: 'Exercise: "Build Your PAI Workspace" — set up a dedicated Project/GPT/Gem with identity docs, voice samples, org knowledge, and workflow SOPs', format: 'Individual work' },
-      { time: '0:50', activity: 'Security checkpoint: What did you upload? Is any of it sensitive? Where does it live? Plus cognitive security: Review your Metacognitive Readiness Assessment results from Week 1 — has anything changed? Exercise: Run the Disagreement Audit — ask your AI to argue against a position you hold strongly on a current work issue. Does it push back substantively, or fold when you push back on its pushback? That pattern tells you how sycophantic your setup is. The research is clear: high capability + low self-awareness + intellectual isolation is the highest-risk profile for personal AI use.', format: 'Group discussion' },
-      { time: '0:55', activity: 'Homework introduction', format: 'Facilitator-led' },
+      { time: '0:48', activity: 'Security checkpoint: What did you upload? Is any of it sensitive? Where does it live? Review data privacy settings on your platform.', format: 'Group discussion' },
+      { time: '0:53', activity: 'Exercise: "Disagreement Audit" — ask your AI to argue against a position you hold strongly on a current work issue. Push back on its pushback. Does it fold or hold its ground? That pattern tells you how sycophantic your setup is. Review your Metacognitive Readiness Assessment from Week 1 — has anything changed?', format: 'Individual + discussion' },
+      { time: '0:58', activity: 'Homework introduction', format: 'Facilitator-led' },
     ],
     platforms: null,
     homework: [
@@ -374,6 +375,7 @@ function Nav({ activeSection }) {
     { id: 'overview', label: 'Overview' },
     { id: 'kirkpatrick', label: 'Kirkpatrick' },
     { id: 'weeks', label: 'Weekly Plan' },
+    { id: 'platforms', label: 'Platforms' },
     { id: 'materials', label: 'Materials' },
     { id: 'calendar', label: 'Calendar' },
     { id: 'nist', label: 'NIST' },
@@ -506,8 +508,220 @@ function WeekCard({ week, isExpanded, onToggle }) {
   )
 }
 
+function PlatformGuide({ platform, isExpanded, onToggle }) {
+  const p = PLATFORMS[platform]
+  return (
+    <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-sm">
+      <button onClick={onToggle} className="w-full text-left p-6 md:p-8 flex items-center gap-5 cursor-pointer">
+        <div className="w-14 h-14 rounded-xl flex items-center justify-center text-white font-[var(--font-display)] text-2xl font-bold shrink-0" style={{ backgroundColor: p.color }}>
+          {p.icon}
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-[var(--font-display)] text-xl md:text-2xl font-bold text-ink">{p.name}</h3>
+          <p className="text-sm text-ink-muted mt-1">{p.summary}</p>
+        </div>
+        <svg className={`w-5 h-5 text-ink-faint shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+      </button>
+
+      {isExpanded && (
+        <div className="px-6 md:px-8 pb-8 space-y-8 border-t border-black/5 pt-6">
+          {/* Architecture Overview */}
+          <div>
+            <h4 className="font-[var(--font-mono)] text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: p.color }}>PAI Architecture</h4>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {Object.entries(p.architecture).map(([key, value]) => (
+                <div key={key} className="bg-cream rounded-xl p-4 border border-black/5">
+                  <p className="font-[var(--font-mono)] text-xs font-bold text-ink-faint uppercase tracking-wider mb-1">{key.replace(/([A-Z])/g, ' $1').trim()}</p>
+                  <p className="text-sm text-ink-muted leading-relaxed">{value}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Cost */}
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl border border-black/5 bg-cream">
+              <p className="font-[var(--font-mono)] text-xs font-bold text-ink-faint uppercase tracking-wider mb-1">Individual Cost</p>
+              <p className="text-sm text-ink font-semibold">{p.individualCost}</p>
+            </div>
+            <div className="p-4 rounded-xl border border-black/5 bg-cream">
+              <p className="font-[var(--font-mono)] text-xs font-bold text-ink-faint uppercase tracking-wider mb-1">Nonprofit Org Pricing</p>
+              <p className="text-sm text-ink font-semibold">{p.nonprofitCost}</p>
+            </div>
+          </div>
+
+          {/* Data Privacy */}
+          <div className="p-4 rounded-xl border border-black/5" style={{ backgroundColor: `${p.color}08` }}>
+            <p className="font-[var(--font-mono)] text-xs font-bold uppercase tracking-wider mb-1" style={{ color: p.color }}>Data Privacy</p>
+            <p className="text-sm text-ink-muted leading-relaxed">{p.dataPrivacy}</p>
+          </div>
+
+          {/* Where COMPAS Files Live */}
+          <div>
+            <h4 className="font-[var(--font-mono)] text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: p.color }}>Where Your COMPAS Files Live</h4>
+            <div className="space-y-2">
+              <div className="flex items-start gap-3 text-sm">
+                <span className="font-[var(--font-mono)] text-xs font-bold text-ink-faint mt-0.5 shrink-0 w-20">Files</span>
+                <span className="text-ink-muted leading-relaxed">{p.compasMapping.where}</span>
+              </div>
+              <div className="flex items-start gap-3 text-sm">
+                <span className="font-[var(--font-mono)] text-xs font-bold text-ink-faint mt-0.5 shrink-0 w-20">Instructions</span>
+                <span className="text-ink-muted leading-relaxed">{p.compasMapping.instructions}</span>
+              </div>
+              <div className="flex items-start gap-3 text-sm">
+                <span className="font-[var(--font-mono)] text-xs font-bold text-ink-faint mt-0.5 shrink-0 w-20">Persistence</span>
+                <span className="text-ink-muted leading-relaxed">{p.compasMapping.persistence}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Setup Steps */}
+          <div>
+            <h4 className="font-[var(--font-mono)] text-xs font-semibold uppercase tracking-wider mb-4" style={{ color: p.color }}>Setup Checklist</h4>
+            <div className="space-y-4">
+              {p.setup.map(s => (
+                <div key={s.step} className="flex items-start gap-4">
+                  <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold shrink-0" style={{ backgroundColor: p.color }}>
+                    {s.step}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm text-ink">{s.title}</p>
+                    <p className="text-sm text-ink-muted leading-relaxed mt-1">{s.detail}</p>
+                    {s.tip && (
+                      <p className="text-xs text-ink-faint mt-2 italic leading-relaxed">Tip: {s.tip}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Memory Note */}
+          <div className="p-4 rounded-xl bg-cream-warm border border-black/5">
+            <p className="font-[var(--font-mono)] text-xs font-semibold text-mtm-orange uppercase tracking-wider mb-2">Memory &amp; Persistence</p>
+            <p className="text-sm text-ink-muted leading-relaxed">{p.memoryWorkaround}</p>
+          </div>
+
+          {/* Week-by-Week Guidance */}
+          <div>
+            <h4 className="font-[var(--font-mono)] text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: p.color }}>Week-by-Week on {p.name}</h4>
+            <div className="space-y-2">
+              {Object.entries(p.weeklyGuidance).map(([week, guidance]) => (
+                <div key={week} className="flex items-start gap-3 py-2 px-3 rounded-lg text-sm hover:bg-cream/50">
+                  <span className="font-[var(--font-mono)] text-xs font-bold shrink-0 mt-0.5 w-8" style={{ color: p.color }}>W{week}</span>
+                  <span className="text-ink-muted leading-relaxed">{guidance}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Strengths & Limitations */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-[var(--font-mono)] text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-3">Strengths</h4>
+              <ul className="space-y-2">
+                {p.strengths.map((s, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-ink-muted leading-relaxed">
+                    <span className="text-emerald-500 mt-0.5 shrink-0">+</span>
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-[var(--font-mono)] text-xs font-semibold text-red-500 uppercase tracking-wider mb-3">Limitations</h4>
+              <ul className="space-y-2">
+                {p.limitations.map((l, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm text-ink-muted leading-relaxed">
+                    <span className="text-red-400 mt-0.5 shrink-0">&ndash;</span>
+                    {l}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PlatformComparison() {
+  return (
+    <div className="space-y-8">
+      {/* Feature Matrix */}
+      <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-sm">
+        <div className="grid grid-cols-[1fr_auto_auto_auto] gap-0 text-xs font-[var(--font-mono)] text-ink-faint uppercase tracking-wider px-6 py-3 border-b border-black/5 bg-cream">
+          <span>Feature</span>
+          <span className="text-center w-36 px-2" style={{ color: PLATFORMS.google.color }}>Google</span>
+          <span className="text-center w-36 px-2" style={{ color: PLATFORMS.claude.color }}>Claude</span>
+          <span className="text-center w-36 px-2" style={{ color: PLATFORMS.chatgpt.color }}>ChatGPT</span>
+        </div>
+        {PLATFORM_COMPARISON.features.map((row, i) => (
+          <div key={i} className={`grid grid-cols-[1fr_auto_auto_auto] gap-0 items-start px-6 py-3 text-sm ${i < PLATFORM_COMPARISON.features.length - 1 ? 'border-b border-black/5' : ''} ${i % 2 === 0 ? '' : 'bg-cream/30'}`}>
+            <span className="font-medium text-ink pr-4">{row.feature}</span>
+            <span className="text-ink-muted text-xs text-center w-36 px-2 leading-relaxed">{row.google}</span>
+            <span className="text-ink-muted text-xs text-center w-36 px-2 leading-relaxed">{row.claude}</span>
+            <span className="text-ink-muted text-xs text-center w-36 px-2 leading-relaxed">{row.chatgpt}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Decision Tree */}
+      <div className="bg-white rounded-2xl border border-black/5 p-6 md:p-8 shadow-sm">
+        <h3 className="font-[var(--font-display)] text-lg font-bold text-ink mb-4">Which Platform Should I Choose?</h3>
+        <div className="space-y-3">
+          {PLATFORM_COMPARISON.decisionTree.map((item, i) => (
+            <div key={i} className="flex items-start gap-4 py-3 px-4 rounded-xl bg-cream border border-black/5">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold shrink-0" style={{ backgroundColor: item.recommendation === 'google' ? PLATFORMS.google.color : item.recommendation === 'claude' ? PLATFORMS.claude.color : item.recommendation === 'chatgpt' ? PLATFORMS.chatgpt.color : '#8a8a8a' }}>
+                {item.recommendation === 'google' ? '◆' : item.recommendation === 'claude' ? '●' : item.recommendation === 'chatgpt' ? '◇' : '?'}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-ink">{item.condition}</p>
+                <p className="text-xs text-ink-muted mt-1 leading-relaxed"><span className="font-semibold" style={{ color: item.recommendation === 'google' ? PLATFORMS.google.color : item.recommendation === 'claude' ? PLATFORMS.claude.color : item.recommendation === 'chatgpt' ? PLATFORMS.chatgpt.color : '#5a5a5a' }}>{item.recommendation === 'google' ? 'Google Gemini' : item.recommendation === 'claude' ? 'Claude' : item.recommendation === 'chatgpt' ? 'ChatGPT' : item.recommendation}</span> &mdash; {item.reason}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* COMPAS File Mapping */}
+      <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-sm">
+        <div className="px-6 py-4 bg-cream border-b border-black/5">
+          <h3 className="font-[var(--font-display)] text-lg font-bold text-ink">Where Your COMPAS Files Live</h3>
+          <p className="text-xs text-ink-faint mt-1">The same 6 files, different homes on each platform</p>
+        </div>
+        {COMPAS_PLATFORM_MAP.map((row, i) => (
+          <div key={row.phase} className={`px-6 py-5 ${i < COMPAS_PLATFORM_MAP.length - 1 ? 'border-b border-black/5' : ''}`}>
+            <div className="flex items-center gap-3 mb-3">
+              <span className="px-2.5 py-1 rounded-full text-xs font-[var(--font-mono)] font-semibold text-white" style={{ backgroundColor: WEEKS[i]?.color || '#8a8a8a' }}>{row.phase}</span>
+              <span className="font-[var(--font-mono)] text-xs text-ink-faint">{row.file}</span>
+              <span className="text-sm text-ink-muted">&mdash; {row.description}</span>
+            </div>
+            <div className="grid md:grid-cols-3 gap-3 ml-0 md:ml-4">
+              <div className="p-3 rounded-lg border border-black/5 bg-cream">
+                <p className="font-[var(--font-mono)] text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: PLATFORMS.google.color }}>Google</p>
+                <p className="text-xs text-ink-muted leading-relaxed">{row.google}</p>
+              </div>
+              <div className="p-3 rounded-lg border border-black/5 bg-cream">
+                <p className="font-[var(--font-mono)] text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: PLATFORMS.claude.color }}>Claude</p>
+                <p className="text-xs text-ink-muted leading-relaxed">{row.claude}</p>
+              </div>
+              <div className="p-3 rounded-lg border border-black/5 bg-cream">
+                <p className="font-[var(--font-mono)] text-[10px] font-bold uppercase tracking-wider mb-1" style={{ color: PLATFORMS.chatgpt.color }}>ChatGPT</p>
+                <p className="text-xs text-ink-muted leading-relaxed">{row.chatgpt}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [expandedWeek, setExpandedWeek] = useState(null)
+  const [expandedPlatform, setExpandedPlatform] = useState(null)
 
   return (
     <div className="min-h-screen">
@@ -538,12 +752,12 @@ export default function App() {
               <div><span className="font-[var(--font-mono)] text-xs text-ink-faint uppercase">Dates</span><p className="text-ink-muted mt-1">April 23 - May 28, 2026</p></div>
               <div><span className="font-[var(--font-mono)] text-xs text-ink-faint uppercase">Facilitators</span><p className="text-ink-muted mt-1">Joshua Peskay & Kim Snyder</p></div>
               <div><span className="font-[var(--font-mono)] text-xs text-ink-faint uppercase">Pricing</span><p className="text-ink-muted mt-1">Paid per person (TBD)</p></div>
-              <div><span className="font-[var(--font-mono)] text-xs text-ink-faint uppercase">Platforms</span><p className="text-ink-muted mt-1">ChatGPT Plus, Claude Pro, Gemini Advanced</p></div>
+              <div><span className="font-[var(--font-mono)] text-xs text-ink-faint uppercase">Platforms</span><p className="text-ink-muted mt-1">ChatGPT Plus, Claude Pro, Google Gemini (donated license for nonprofits)</p></div>
               <div><span className="font-[var(--font-mono)] text-xs text-ink-faint uppercase">Community</span><p className="text-ink-muted mt-1">MTM Together (async support)</p></div>
             </div>
             <div className="mt-6 p-4 bg-mtm-orange/5 border border-mtm-orange/10 rounded-xl">
               <p className="text-sm text-ink-muted leading-relaxed">
-                <span className="font-semibold text-mtm-orange">Note on Copilot:</span> Microsoft Copilot (consumer/Pro) lacks the custom persona, projects, and memory features required for this program's core exercises. Participants should use ChatGPT Plus, Claude Pro, or Gemini Advanced (all $20/month).
+                <span className="font-semibold text-mtm-orange">Note on Copilot:</span> Microsoft Copilot (consumer/Pro) lacks the custom persona, projects, and memory features required for this program's core exercises. Participants should use ChatGPT Plus ($20/mo), Claude Pro ($20/mo), or Google Gemini (donated license at no cost for organizations on Google Workspace for Nonprofits; $20/mo individual via Google One AI Premium).
               </p>
             </div>
           </div>
@@ -620,6 +834,42 @@ export default function App() {
             {WEEKS.map(w => (
               <WeekCard key={w.num} week={w} isExpanded={expandedWeek === w.num} onToggle={() => setExpandedWeek(expandedWeek === w.num ? null : w.num)} />
             ))}
+          </div>
+        </section>
+
+        {/* ═══ PLATFORM GUIDES ═══ */}
+        <section id="platforms" className="pb-16 md:pb-24">
+          <div className="text-center mb-12">
+            <p className="font-[var(--font-mono)] text-xs font-semibold text-mtm-teal uppercase tracking-[0.2em] mb-2">Build Your PAI On</p>
+            <h2 className="font-[var(--font-display)] text-3xl md:text-4xl font-bold text-ink">Platform Guides</h2>
+            <p className="text-sm text-ink-muted mt-2 max-w-2xl mx-auto leading-relaxed">
+              The same COMPAS framework, three different homes. Choose your platform and follow the architecture guide to build your Personal AI Assistant.
+            </p>
+          </div>
+
+          {/* Platform selector pills */}
+          <div className="flex items-center justify-center gap-3 mb-8">
+            {Object.values(PLATFORMS).map(p => (
+              <button key={p.id} onClick={() => setExpandedPlatform(expandedPlatform === p.id ? null : p.id)} className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${expandedPlatform === p.id ? 'text-white border-transparent shadow-md' : 'text-ink-muted border-black/10 hover:border-black/20 bg-white'}`} style={expandedPlatform === p.id ? { backgroundColor: p.color, borderColor: p.color } : {}}>
+                {p.icon} {p.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Platform guides */}
+          <div className="space-y-4 mb-12">
+            {Object.keys(PLATFORMS).map(key => (
+              <PlatformGuide key={key} platform={key} isExpanded={expandedPlatform === key} onToggle={() => setExpandedPlatform(expandedPlatform === key ? null : key)} />
+            ))}
+          </div>
+
+          {/* Comparison section */}
+          <div className="mt-12">
+            <div className="text-center mb-8">
+              <p className="font-[var(--font-mono)] text-xs font-semibold text-mtm-teal uppercase tracking-[0.2em] mb-2">Side by Side</p>
+              <h3 className="font-[var(--font-display)] text-2xl md:text-3xl font-bold text-ink">Platform Comparison</h3>
+            </div>
+            <PlatformComparison />
           </div>
         </section>
 
@@ -708,7 +958,7 @@ export default function App() {
           {/* The Six Priorities */}
           <div className="bg-white rounded-2xl border border-black/5 overflow-hidden shadow-sm">
             <div className="px-6 py-4 bg-cream border-b border-black/5">
-              <h3 className="font-[var(--font-display)] text-lg font-bold text-ink">NIST\'s Six Priorities — Plain Language</h3>
+              <h3 className="font-[var(--font-display)] text-lg font-bold text-ink">{"NIST's Six Priorities — Plain Language"}</h3>
               <p className="text-xs text-ink-faint mt-1">These are the questions you want participants to be able to ask of their own packages. Vocabulary optional.</p>
             </div>
             {NIST_SIX.map((p, i) => (
@@ -731,7 +981,7 @@ export default function App() {
             <h2 className="font-[var(--font-display)] text-2xl md:text-3xl font-bold mb-4">Prerequisites</h2>
             <div className="max-w-2xl mx-auto space-y-3 text-left">
               {[
-                'A paid subscription to ONE of: ChatGPT Plus ($20/mo), Claude Pro ($20/mo), or Gemini Advanced ($20/mo)',
+                'Access to ONE of: ChatGPT Plus ($20/mo), Claude Pro ($20/mo), or Google Gemini (donated license at no cost for nonprofits on Google Workspace; $20/mo individual)',
                 'Comfort with basic computer tasks (email, documents, web browsing)',
                 'At least one repeatable work task they want to improve',
                 'Willingness to commit 1 hour/week live + 1-2 hours/week practice',
@@ -753,7 +1003,7 @@ export default function App() {
         {/* ═══ FOOTER ═══ */}
         <footer className="border-t border-black/5 py-8 text-center">
           <p className="text-sm text-ink-muted font-semibold">Meet the Moment</p>
-          <p className="text-xs text-ink-faint mt-1">Prepared for Kim Snyder, March 28, 2026</p>
+          <p className="text-xs text-ink-faint mt-1">Prepared for Kim Snyder | Last updated April 16, 2026</p>
           <p className="text-[10px] text-ink-faint mt-3">This document was drafted with AI assistance and reviewed before sharing.</p>
         </footer>
       </div>
