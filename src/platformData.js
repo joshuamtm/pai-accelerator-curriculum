@@ -196,10 +196,10 @@ export const PLATFORMS = {
     color: '#10a37f',
     icon: '◇',
     tier: 'Plus ($20/mo) or Business ($25-30/user/mo)',
-    nonprofitCost: 'No nonprofit discount. Plus: $20/mo individual. Business: $25-30/user/mo.',
+    nonprofitCost: '~$20/user/mo (ChatGPT Business with 20% nonprofit discount via Goodstack; Enterprise up to 50% off via sales)',
     individualCost: '$20/mo (Plus)',
-    dataPrivacy: 'Plus: conversations train models by default — must opt out in Settings → Data Controls. Business/Teams: no training, contractual guarantee.',
-    summary: 'Strong PAI platform with the most mature scheduling feature (Tasks) and good document workflow tools (Canvas). Projects provide persistent file context and scoped memory. Critical caveat: data privacy requires manual opt-out on Plus.',
+    dataPrivacy: 'Plus: conversations train models by default — must opt out in Settings → Data Controls. Business: no training, contractual guarantee. Nonprofit Business at ~$20/user/mo gives you Business-tier data protections at a Plus price point.',
+    summary: 'Strong PAI platform with the most mature scheduling feature (Tasks) and good document workflow tools (Canvas). Projects provide persistent file context and scoped memory. Nonprofit orgs get 20% off Business tier via Goodstack, bringing data-protected Business to roughly the same price as Plus.',
 
     architecture: {
       container: 'Project (recommended) — not Custom GPT',
@@ -214,9 +214,9 @@ export const PLATFORMS = {
     setup: [
       {
         step: 1,
-        title: 'Turn off data training',
-        detail: 'Before building anything: go to Settings → Data Controls → "Improve the model for everyone" → turn OFF. This prevents your conversations from being used to train OpenAI\'s models.',
-        tip: 'This is especially important for nonprofit professionals who may discuss client data, program details, or sensitive organizational information. Do this first, before your first real conversation.',
+        title: 'Check your data privacy settings',
+        detail: 'If you\'re on ChatGPT Plus: go to Settings → Data Controls → "Improve the model for everyone" → turn OFF. This prevents your conversations from being used to train OpenAI\'s models. If your organization has ChatGPT Business (available to nonprofits at ~$20/user via Goodstack), data training is off by default — no action needed.',
+        tip: 'If your org qualifies for ChatGPT Business nonprofit pricing, it\'s the same ~$20/user as Plus but with contractual data protections and admin controls. Worth asking your IT team about. Apply at validate.goodstack.org/openai.',
       },
       {
         step: 2,
@@ -267,11 +267,11 @@ export const PLATFORMS = {
       'Project-scoped memory keeps PAI context separate from casual use',
       'Custom Instructions provide a global identity layer across all interactions',
       'Agent Mode available (limited to 40 messages/month on Plus — demo use only)',
+      'Nonprofit Business pricing (~$20/user via Goodstack) gives Business-tier data protections at a Plus price point',
     ],
 
     limitations: [
-      'Data trains OpenAI models by default on Plus — must manually opt out',
-      'No nonprofit discount — $20/mo individual, $25-30/user org',
+      'Data trains OpenAI models by default on Plus — must manually opt out (Business tier does not train)',
       'Memory does NOT reliably transfer into Custom GPTs — use Projects instead',
       'Custom Instructions limited to 1,500 chars per field (3,000 total)',
       'Agent Mode capped at 40 messages/month on Plus — not a daily workflow tool',
@@ -292,7 +292,7 @@ export const PLATFORMS = {
 export const PLATFORM_COMPARISON = {
   features: [
     { feature: 'Monthly cost (individual)', google: '$0 (donated license) or $20', claude: '$20 (Pro)', chatgpt: '$20 (Plus)' },
-    { feature: 'Nonprofit org pricing', google: '$0 (donated) or $3.50/user', claude: '$8/seat (Teams)', chatgpt: 'No discount' },
+    { feature: 'Nonprofit org pricing', google: '$0 (donated) or $3.50/user', claude: '$8/seat (Teams)', chatgpt: '~$20/user (Business, 20% off)' },
     { feature: 'PAI container', google: 'Gem + NotebookLM', claude: 'Project', chatgpt: 'Project' },
     { feature: 'COMPAS file storage', google: 'NotebookLM (50 sources)', claude: 'Project files (unlimited)', chatgpt: 'Project files (25)' },
     { feature: 'Instruction limit', google: 'Undocumented', claude: '~1,500 chars', chatgpt: '3,000 chars (global) + project' },
@@ -303,7 +303,7 @@ export const PLATFORM_COMPARISON = {
     { feature: 'Scheduled tasks', google: 'None', claude: 'Routines (5/day, new)', chatgpt: 'Tasks (10 active)' },
     { feature: 'Voice/style config', google: 'Instructions only', claude: 'Custom Styles (writing samples)', chatgpt: 'Instructions only' },
     { feature: 'Document drafting', google: 'Standard chat', claude: 'Artifacts', chatgpt: 'Canvas' },
-    { feature: 'Data privacy', google: 'Enterprise protections (free)', claude: 'No training (paid)', chatgpt: 'Trains by default (opt out!)' },
+    { feature: 'Data privacy', google: 'Enterprise protections (donated)', claude: 'No training (paid)', chatgpt: 'Plus trains by default; Business does not' },
     { feature: 'Unique strength', google: 'NotebookLM knowledge grounding', claude: 'Deepest integration + Styles', chatgpt: 'Tasks + Canvas + breadth' },
   ],
 
